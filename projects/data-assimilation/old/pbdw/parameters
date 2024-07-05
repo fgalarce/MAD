@@ -1,0 +1,48 @@
+[Finite Elements]
+innerProduct=L2
+nbQuadraturePoints=5
+
+[model]
+dirModel=../../data/venturi/mor/mesh00000/
+method=mode
+type=linear
+modelFormat=.vct
+nbModes=5
+adaptive_nbModes=no
+
+[geometry]
+geometryData=../../data/venturi/mesh/venturi00000.mesh
+
+[ultrasound >> time]
+CFDtimeStep=0.02
+UStimeStart=0.04
+UStimeStep=0.02
+UStimeEnd=0.5
+start=15
+end=25
+
+[ultrasound >> space]
+beamDir=-0.707106781186548 0.707106781186548 0
+transDir=0.707106781186548 0.707106781186548 0
+voxelSize=0.24 0.24 0.24
+computeRieszRepresenters=yes
+saveRieszRepresenters=no
+rieszRepresentersFolder=../../data/venturi/measures/00000/
+dirMeasures=../../data/venturi/measures/
+measuresName=venturi
+modeMeasures=CFI
+inputFormat=.vct
+
+[ultrasound synthetic]
+dirSyntheticField=../stokes_geo_october/results_geo/
+gaussianNoiseLevel=0.0
+restrainedLeastSquares=no
+
+[input/output]
+dirResults=./results_inrange/
+plotRieszRepresenters=no
+plotTarget=no
+plotMeasures=no
+minimalOutput=no
+loadMeasuresAndG=no
+patientName=pbdw

@@ -1,0 +1,40 @@
+[MAD]
+verbose=5
+debug=false
+
+[FEM]
+nbVariables=2
+fe=p1 p1
+nbDofsPerNode=1 1
+variableName=velocity pressure
+nbQuadraturePoints=3
+
+[Time]
+timeStep=1e-3
+nbIterations=10000
+closureTime=0.0
+
+[physics SI units]
+density=2000.0
+bingham=0.0
+viscosity=0.08
+length=200
+heigth=100
+diameter=0.1
+wave_velocity=1000
+convective_hammer=no
+
+[IO]
+patientName=line
+geometryData=MAD_DATA/mesh/line/line_500v.mesh
+dirResults=MAD_RESULTS/hammer/results/
+
+[solver]
+nonLinearMaxIterations=1000
+nonLinearTolerance=1e-2
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-9
+use_solution_as_guess_KSP=false
+reuse_preconditioner=false
+monitorKSP=false

@@ -1,0 +1,46 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=3 1
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=5e-3
+nbIterations=480
+
+[physics]
+viscosity=0.03
+density=1.0
+
+[bc]
+hemodynamics=true
+period=0.8
+amplitude=17.0
+inlet=1
+backflowStab=false
+walls=4
+
+[bc Windkessel]
+outlets=2 3
+resistances=1e2 1e2
+distalResistances=1e2 1.9e2
+capacitances=1e-4 1e-4
+distalPressures0=1e4 1e4
+
+[IO]
+patientName=caro
+geometryData=../../../../data/mesh/carotid/caroModerate12kv.mesh
+dirResults=./carotid2/
+
+[solver]
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-09
+#use_solution_as_guess_KSP=true
+reuse_preconditioner=true
+#monitorKSP=true

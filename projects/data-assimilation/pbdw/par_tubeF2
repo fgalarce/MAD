@@ -1,0 +1,24 @@
+[MRE]
+start=0
+end=50
+voxelSize=0.21 0.0616 0.21
+beamDir=0.707106781 0.0 0.707106781
+transDir=0.707106781 0.0 0.707106781
+measures=../../../../mad_data/measures/tubeF2.00000.us
+dirSyntheticField=../../pdes/05_navier_stokes/results/velocity
+modeMeasures=CFI
+
+[IO]
+geometryData=../../../../../data/mesh/cylinder/tube_field2.mesh
+patientName=pbdw
+dirResults=results
+
+[FEM and POD]
+innerProduct=l2
+nbQuadraturePoints=5
+nbVariables=1
+nbDofsPerNode=3
+variableName=velocity
+dirModel=../../mor/pod/tube/
+method=mode
+nbModes=10

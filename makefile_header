@@ -1,0 +1,89 @@
+# Detect operating system in Makefile. Author: He Tao. Date: 2015-05-30.
+ifeq ($(OS),Windows_NT)
+  OSFLAG +=WIN32
+  ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+    OSFLAG +=AMD64
+  endif
+  ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+    OSFLAG +=IA32
+  endif
+else
+  UNAME_S := $(shell uname -s)
+  ifeq ($(UNAME_S),Linux)
+    OSFLAG +=LINUX
+  endif
+  ifeq ($(UNAME_S),Darwin)
+    OSFLAG +=OSX
+  endif
+  UNAME_P := $(shell uname -p)
+endif
+
+# ++ Internal libraries ++
+TOOLS=$(MAD_ROOT)/tools/
+ASSIMILATION=$(MAD_ROOT)/assimilation/
+IO=$(MAD_ROOT)/io/
+FEM=$(MAD_ROOT)/fem/
+CALCULUS=$(MAD_ROOT)/calculus/
+LINEAR_ALGEBRA=$(MAD_ROOT)/la/
+SIMPLEX=$(MAD_ROOT)/simplex/
+PDE=$(MAD_ROOT)/pde/
+
+# ** PETSC **
+PETSC_LIB=$(PETSC_ROOT)/build/lib/
+PETSC_INC=$(PETSC_ROOT)/build/include/
+
+# ** MPI ** 
+ifeq ($(UNAME_S), Linux)
+  MPI_LIB=$(PETSC_ROOT)/arch-linux-c-opt/externalpackages/openmpi-4.1.6/ompi/
+  MPI_INC=$(PETSC_ROOT)/arch-linux-c-opt/externalpackages/openmpi-4.1.6/ompi/include/
+endif
+
+ifeq ($(UNAME_S), Darwin)
+  MPI_LIB=$(PETSC_ROOT)/arch-darwin-c-opt/externalpackages/openmpi-3.1.4/ompi/
+  MPI_INC=$(PETSC_ROOT)/arch-darwin-c-opt/externalpackages/openmpi-3.1.4/ompi/include/
+endif
+
+INCLUDE=-I.\
+ -I$(PETSC_INC)\
+ -I$(MPI_INC)\
+ -I$(TOOLS)\
+ -I$(IO)\
+ -I$(LINEAR_ALGEBRA)\
+ -I$(SIMPLEX)\
+ -I$(FEM)\
+ -I$(ASSIMILATION)\
+ -I$(CALCULUS)\
+ -I$(PDE)
+
+ifeq ($(UNAME_S), Linux)
+  # -- Compiler/linker settings --
+  CXX=g++ -std=c++17 -Wall -w -O3
+	LINK=-Wl,-rpath,$(PETSC_LIB):$(PDE):$(TOOLS):$(LINEAR_ALGEBRA):$(ASSIMILATION):$(IO):$(CALCULUS):$(FEM):$(SIMPLEX)\
+	 -L$(PETSC_LIB) -lslepc -lpetsc\
+	 -L$(TOOLS) -ltools\
+	 -L$(LINEAR_ALGEBRA) -llinear_algebra\
+	 -L$(MPI_LIB) -lmpi\
+	 -L$(ASSIMILATION) -lassimilation\
+	 -L$(IO) -lio\
+	 -L$(FEM) -lfem\
+	 -L$(SIMPLEX) -lsimplex\
+	 -L$(PDE) -lpde\
+	 -L$(CALCULUS) -lcalculus
+endif
+
+ifeq ($(UNAME_S), Darwin)
+  # -- Compiler/linker settings --
+  CXX=g++ -std=c++17 -Wall -w -O3
+  LINK_EXTERNAL=-L$(PETSC_LIB) -lpetsc -lslepc -L$(MPI_LIB) -lmpi
+  LINK=-L$(PETSC_LIB) -lpetsc -lslepc\
+	 -L$(MPI_LIB) -lmpi\
+	 -L$(CALCULUS) -lcalculus\
+	 -L$(ASSIMILATION) -lassimilation\
+	 -L$(PDE) -lpde\
+	 -L$(SIMPLEX) -lsimplex\
+ 	 -L$(FEM) -lfem\
+	 -L$(LINEAR_ALGEBRA) -llinear_algebra\
+   -L$(IO) -lio\
+	 -L$(TOOLS) -ltools
+endif
+MAKE=$(CXX) $(INCLUDE)

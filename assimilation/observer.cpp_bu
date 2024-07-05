@@ -1,0 +1,260 @@
+/*=============================================================================
+  This file is part of the code MAD
+  Copyright (C) 2017-2024,
+    
+     Felipe Galarce at INRIA
+
+  MAD is free software; you can redistribute it and/or modify it under
+  the terms of the GNU Lesser General Public License as published by the Free
+  Software Foundation; either version 2.1 of the License, or (at your option)
+  any later version.
+
+  MAD is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for
+  more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with MAD. If not, see http://www.gnu.org/licenses/.
+  =============================================================================*/
+
+#include<observer.hpp>
+
+void Observer::initialize(Parameters parameters, Geometry & geometry, InnerProduct & innerProduct, IO & inputOutput, Calculus & calc, LinearAlgebra & linearAlgebra){
+  MPI_Comm_rank(MPI_COMM_WORLD, &m_world_rank);
+
+  par = parameters;
+  geo = geometry;
+  ip = innerProduct;
+  io = inputOutput;
+  calculus = calc;
+  la = linearAlgebra;
+
+  m_voxelBasis.resize(3);
+  m_voxelBasis[0] = par.beamDir();
+  m_voxelBasis[1] = par.transDir();
+  m_voxelBasis[2] = cross(m_voxelBasis[0], m_voxelBasis[1])/norm(cross(m_voxelBasis[0], m_voxelBasis[1]));
+
+  data = par.scaleUnits()*importdata(par.measures());
+  m_nbVoxels = data.size();
+  m_measures.resize(m_nbVoxels);
+  m_voxelCenters.resize(m_nbVoxels);
+  for (int i = 0 ; i < m_nbVoxels; i++){
+    m_voxelCenters[i].resize(geo.dimension());
+    m_measures[i] = data[i][geo.dimension()];
+    for (int comp = 0; comp < geo.dimension(); comp++){
+      m_voxelCenters[i][comp] = data[i][comp];
+    }
+  }
+
+  m_nbDofs = 0;
+  for (int i = 0; i < par.nbVariables(); i++){
+    m_nbDofs = m_nbDofs + geo.nbVertices*par.nbDofsPerNode()[i];
+  }
+  filterMeasures();
+  if (par.rieszRepresentersFolder() != " "){
+    m_rrNorms = importdata1D(par.rieszRepresentersFolder() + "/rrNorms.txt");
+    m_rieszRepresenters.resize(par.nbMeasures());
+    for (int i = 0; i < par.nbMeasures(); i++){
+      vec(m_rieszRepresenters[i], m_nbDofs);
+      loadVec(m_rieszRepresenters[i], par.rieszRepresentersFolder() + "/rr." + wildcard(i) + ".bin");
+    }
+  } else {
+    buildObserverH1();
+    m_rrNorms = la.orthonormalize(m_rieszRepresenters); /* use mGS */
+    exportObserver();
+  }
+}
+
+void Observer::exportObserver(){
+  exportData(m_rrNorms, par.dirResults() + "/rrNorms.txt");
+  for (int i=0; i < m_rieszRepresenters.size(); i++){
+    saveVec(m_rieszRepresenters[i], par.dirResults() + "/rr." + wildcard(i) + ".bin");
+  }
+}
+
+void Observer::filterMeasures(){
+  int treshold = 10;
+  for (int idRiesz = 0; idRiesz < m_nbVoxels; idRiesz++){
+    int nbPoints = 0;
+    for (int i = 0; i < geo.coordinates().size(); i++){
+      if (geo.isInside(geo.coordinates()[i], m_voxelCenters[idRiesz], m_voxelBasis, par.voxelSize())){
+        nbPoints = nbPoints + 1;
+        if (nbPoints > treshold){
+          nzVoxels.push_back(idRiesz);
+          break;
+        }
+      }
+    }
+  }
+  m_nbVoxels = nzVoxels.size(); 
+  m_nbMeasures = m_nbVoxels*par.measureIt().size();
+  m_rieszRepresenters.resize(m_nbMeasures);
+  m_rrNorms.resize(m_nbMeasures);
+  if (m_world_rank == 0) cout << "Observer: updated number of voxels: " << m_nbVoxels << "." << endl;
+}
+
+void Observer::buildObserver(){
+  if (m_world_rank == 0) cout << "Observer: computing Riesz representers li = <omega, u>. \n";
+  for (int idRiesz = 0; idRiesz < m_nbVoxels; idRiesz++){
+    vector<int> pointsInside;
+    for (int i = 0; i < geo.coordinates().size(); i++){
+      if (geo.isInside(geo.coordinates()[i], m_voxelCenters[nzVoxels[idRiesz]], m_voxelBasis, par.voxelSize())){
+        pointsInside.push_back(i);
+      }
+    }
+    for (int j : par.measureIt()){
+      int offset = j*geo.nbVertices;
+      vec(m_rieszRepresenters[idRiesz+m_nbVoxels*j], m_nbDofs);
+      for (int i : pointsInside){
+        vecSet(m_rieszRepresenters[idRiesz+m_nbVoxels*j], offset + i, 1.0); CHKERRV(code);
+      }
+      code = VecAssemblyBegin(m_rieszRepresenters[idRiesz+m_nbVoxels*j]); CHKERRV(code);
+      code = VecAssemblyEnd(m_rieszRepresenters[idRiesz+m_nbVoxels*j]); CHKERRV(code);
+
+      if (m_world_rank == 0) cout << "Observer: norm of RR: " << idRiesz << " " << j << ": " << m_rrNorms[idRiesz+m_nbVoxels*j] << endl;
+    } 
+  }
+}
+
+void Observer::buildObserverH1(){
+  if (m_world_rank == 0) cout << "Observer: Computing H1 Riesz representers li = <omega, u>. \n";
+  Boundary boundary;
+  boundary.initialize(par, geo);
+
+  MasterElement fe; 
+  fe.initialize(par, geo.dimension());
+
+  Mat LHS = mat(m_nbDofs, m_nbDofs);
+  code = MatDuplicate(ip.ip_mat(), MAT_COPY_VALUES, &LHS); CHKERR(code);
+  MatAssemblyBegin(LHS, MAT_FINAL_ASSEMBLY);
+  MatAssemblyEnd(LHS, MAT_FINAL_ASSEMBLY);
+  for (int i = 0; i < geo.bdLabels().size(); i++){
+    for (int j = 0; j < par.measureIt().size(); j++){
+      boundary.Dirichlet(geo.bdLabels()[i], noslip_bc, j);
+    }
+  }
+  boundary.block(LHS);
+  KSP ksp = configureKSP(LHS, "preonly", "lu");
+  for (int idVoxel = 0; idVoxel < m_nbVoxels; idVoxel++){
+    vector<int> pointsInside;
+    vector<int> voxelSupport;
+    for (int i = 0; i < geo.coordinates().size(); i++){
+      if (geo.isInside(geo.coordinates()[i], m_voxelCenters[nzVoxels[idVoxel]], m_voxelBasis, par.voxelSize())){
+        for (int var = 0; var < par.measureIt().size(); var++){
+          voxelSupport.push_back(geo.nbVertices*var + i);
+        }
+        pointsInside.push_back(i);
+      }
+    }
+
+    /* LHS computation L_i = int_{idVoxel} phi_i \cdot b */
+    vector<Vec> L(par.measureIt().size());
+    for (int i = 0; i < par.measureIt().size(); i++){
+      L[i] = zeros(m_nbDofs);
+    }
+    int low,high;
+    code = VecGetOwnershipRange(L[0], &low, &high); CHKERR(code);
+    loop_cout(m_world_rank, idVoxel, m_nbVoxels, to_string(int(float(idVoxel)/float(m_nbVoxels)*100)) + " %");
+    for (int i = 0; i < pointsInside.size(); i++){ /* loop over points inside image voxel */
+      vector<vector<int>> neighbours = geo.getElementNeighbourhood(pointsInside[i]);
+      vector<int> elementSet = neighbours[0];
+      vector<int> indexes = neighbours[1];
+      vector<int> partIds = neighbours[2];
+
+      /* Compute int_voxel \phi_i */
+      for (int j = 0; j < elementSet.size(); j++){ /* Loop over tetrahedras */
+        vector<int> element = geo.elements()[partIds[j]][elementSet[j]];
+        vector<vector<double>> coordinates(geo.dimension()+1);
+        for (int vertex = 0; vertex < geo.dimension() + 1; vertex++){
+          coordinates[vertex] = geo.coordinates()[element[vertex]];
+        }
+        fe.setCoordinates(coordinates);
+        double Li = 0.0;
+        for (int qp = 0; qp < par.nbQuadraturePoints(); qp++){
+          Li = Li + fe.phi(qp, indexes[j]) * fe.weights()[qp] * fe.detJacobian();
+        }
+        for (int var = 0; var < par.measureIt().size(); var++){
+          vecSet(L[var], voxelSupport[var + par.measureIt().size()*i], Li);
+        }
+      }            
+    }
+    /* solve for omega_i */
+    for (int j = 0; j < par.measureIt().size(); j++){
+      VecAssemblyBegin(L[j]);
+      VecAssemblyEnd(L[j]);
+      boundary.block(L[j]);
+      vec(m_rieszRepresenters[idVoxel + j*m_nbVoxels], m_nbDofs);
+      code = KSPSolve(ksp, L[j], m_rieszRepresenters[idVoxel + j*m_nbVoxels]); CHKERR(code); 
+      code = VecDestroy(&L[j]); CHKERR(code);
+    }
+    pointsInside.clear();
+  }
+  code = KSPDestroy(&ksp); CHKERRV(code); 
+  code = MatDestroy(&LHS); CHKERRV(code); 
+}
+
+Vec Observer::synthetic(string syntheticField, int iteration){
+  vec(m_omega, m_nbDofs);
+  vec(m_theta, m_nbMeasures);
+  VecZeroEntries(m_omega);
+  int fieldsMeasured = par.measureIt().size();
+  Vec u_gt = vec(m_nbDofs);
+  vector<string> to_load(par.nbVariables());
+  for (int j = 0; j < par.nbVariables(); j++){
+    to_load[j] = syntheticField + "/" + par.variableName()[j] + "." + wildcard(iteration) + ".scl";
+  } 
+  io.loadVector(u_gt, to_load);
+
+  for (int j = 0; j < fieldsMeasured; j++){
+    for (int i = 0; i < m_nbVoxels; i++){
+      double theta = ip(u_gt, m_rieszRepresenters[i+j*m_nbVoxels]);
+      code = VecSetValue(m_theta, i + j*m_nbVoxels, theta, INSERT_VALUES); CHKERR(code);
+      code = VecAXPY(m_omega, theta, m_rieszRepresenters[i+j*m_nbVoxels]); CHKERR(code);
+    }
+  }
+  VecAssemblyBegin(m_theta);
+  VecAssemblyEnd(m_theta);
+  return m_omega;
+}
+
+void Observer::buildMeasures(){
+  vec(m_theta, m_nbMeasures);
+  VecZeroEntries(m_theta);
+  for (int i = 0; i < m_nbVoxels; i++){
+    for (int comp = 0; comp < par.measureIt().size(); comp++){
+      vecSet(m_theta, i+comp*m_nbVoxels, data[nzVoxels[i]][geo.dimension()+comp]*m_rrNorms[i+comp*m_nbVoxels]);
+    }
+  }
+  VecAssemblyBegin(m_theta);
+  VecAssemblyEnd(m_theta);
+}
+
+void printObservations(){
+//
+//  m_rieszRepresenters_l2.resize(m_nbMeasures);
+//
+//  if (m_world_rank == 0) cout << "Observer: computing l2 representers to print measures on FEM basis. \n";
+//  for (int idRiesz = 0; idRiesz < m_nbVoxels; idRiesz++){
+//    vector<int> pointsInside;
+//    for (int i = 0; i < geo.coordinates().size(); i++){
+//      if (geo.isInside(geo.coordinates()[i], m_voxelCenters[nzVoxels[idRiesz]], m_voxelBasis, par.voxelSize())){
+//        pointsInside.push_back(i);
+//      }
+//    }
+//    for (int j : par.measureIt()){
+//      int offset = j*geo.nbVertices;
+//      vec(m_rieszRepresenters_l2[idRiesz+m_nbVoxels*j], m_nbDofs);
+//      for (int i : pointsInside){
+//        vecSet(m_rieszRepresenters_l2[idRiesz+m_nbVoxels*j], offset + i, 1.0); CHKERRV(code);
+//      }
+//      code = VecAssemblyBegin(m_rieszRepresenters_l2[idRiesz+m_nbVoxels*j]); CHKERRV(code);
+//      code = VecAssemblyEnd(m_rieszRepresenters_l2[idRiesz+m_nbVoxels*j]); CHKERRV(code);
+//
+//      m_rrNorms[idRiesz+m_nbVoxels*j] = sqrt(ip(m_rieszRepresenters_l2[idRiesz+m_nbVoxels*j], m_rieszRepresenters_l2[idRiesz+m_nbVoxels*j]));
+//      code = VecScale(m_rieszRepresenters_l2[idRiesz+m_nbVoxels*j], 1.0/m_rrNorms[idRiesz+m_nbVoxels*j]);
+//      if (m_world_rank == 0) cout << "Observer: norm of RR: " << idRiesz << " " << j << ": " << m_rrNorms[idRiesz+m_nbVoxels*j] << endl;
+//    } 
+//  }
+}
+  

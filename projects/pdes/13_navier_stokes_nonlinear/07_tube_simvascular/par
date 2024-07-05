@@ -1,0 +1,54 @@
+[MAD]
+verbose=5
+debug=no
+
+[FEM]
+fe=p1 p1 p1 p1
+variableName=ux uy uz p
+innerProduct=H1 H1 H1 L2
+nbDofsPerNode=1 1 1 1
+nbQuadraturePoints=4
+nbQuadraturePointsBD=6
+nbVariables=4
+
+[time]
+timeStep=1e-3
+nbIterations=400
+timeItegration=BDF2
+
+[physics]
+viscousTerm=symmetric
+viscosity=0.04
+density=1.06
+
+[bc]
+hemodynamics=true
+amplitude=10.0
+inlet=6
+outlets=28
+backflowStab=true
+backflowCoeff=0.2
+walls=23 19 15 27
+distalResistances=1.0
+resistances=0.1
+capacitances=0.0795774715
+distalPressures0=0.0
+
+[IO]
+patientName=toy
+geometryData=MAD_DATA/mesh/simvascular/tube_simvascular_coarse.mesh
+#geometryData=MAD_DATA/mesh/cylinder/tube_simvascular_fine28k.mesh
+dirResults=MAD_RESULTS/ns_tube_simvascular/
+
+[solver]
+nonLinearTolerance=1e-4
+nonLinearMaxIterations=15
+solver=gmres
+preconditioner=asm
+reuse_preconditioner=false
+use_solution_as_guess_KSP=true
+ksp_tolerance=1e-6
+ksp_tolerance_absolute=1e-8
+ksp_max_iterations=1000
+ksp_restartGMRESiterations=300
+monitorKSP=true

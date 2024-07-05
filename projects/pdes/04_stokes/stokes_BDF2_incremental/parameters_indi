@@ -1,0 +1,12 @@
+bdLabels=1
+inlet_u0=1
+
+[Finite Elements]
+mixed_problem=yes
+nbQuadraturePoints=5
+problemType=vector
+
+[IO]
+geometryData=/Users/fgalarce/Downloads/vtu_mella/vessel.mesh
+patientName=indicatrix
+dirResults=./results/

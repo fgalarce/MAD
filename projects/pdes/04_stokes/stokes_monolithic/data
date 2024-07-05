@@ -1,0 +1,26 @@
+[CFD]
+viscosity=0.03
+timeStep=0.02
+nbIterations=100
+density=1.0
+inlet=2
+walls=1
+outlet=3
+#inlet=12
+#walls=2 10 7 8 9 1 4
+
+[Windkessel]
+resistance=1.0
+capacitance=1.0 
+distalResistance=1.0
+
+[Finite Elements]
+mixed_problem=yes
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+problemType=vector
+
+geometryData=../../data/mesh/tube_2kv.mesh
+patientName=stokes
+dirResults=./results_windk/sim00000/
+outputFormat=".ens"

@@ -1,0 +1,34 @@
+[FEM]
+nbVariables=3
+nbDofsPerNode=3 3 1
+variableName=Usolid Ufluid pressure
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+nbIterations=50
+timeStep=0.1
+inlet=1
+outlet=6
+walls=5 2 3 4
+inlet_u0=1
+
+[Biot]
+sigma0=1.0
+viscosity=1.0
+density=1.0
+porosity=0.9
+porosity2=0.8
+youngModulus=1.0
+poissonRatio=0.2
+
+[kidney]
+mu=16.7
+lambda=0.1
+biotWillis=1.0
+
+[IO]
+patientName=biot
+geometryData=../../../../mad_data/mesh/sphere.o.o.mesh
+dirResults=./sphere/
+
+[box]
+x_range=1.5 4.0

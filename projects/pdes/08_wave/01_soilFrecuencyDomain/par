@@ -1,0 +1,33 @@
+[MAD]
+verbose=5
+
+[FEM]
+nbVariables=4
+fe=p1 p1 p1 p1
+innerProduct=H1 H1 H1 H1
+nbDofsPerNode=1 1 1 1
+variableName=u_reX u_reY u_imX u_imY
+nbQuadraturePoints=4
+nbQuadraturePointsBD=1
+
+[soil]
+#density=2630
+#youngModulus=5.140e9
+#poissonRatio=0.2
+#150000
+#V_s 200 a 250 m/s = sqrt(G/rho)
+wave_velocity=200
+frecuency=10
+damping=0.877
+
+[bc]
+amplitude=0.3
+
+[IO]
+patientName=soil
+geometryData=../../../../../data/mesh/rectangle/rectangle_17kv.mesh
+dirResults=./soil/
+
+[solver]
+solver=preonly
+preconditioner=lu

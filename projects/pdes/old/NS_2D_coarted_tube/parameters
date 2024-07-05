@@ -1,0 +1,24 @@
+[FEM]
+fe=p1 p1
+nbDofsPerNode=2 1
+nbQuadraturePoints=4
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=0.01
+nbIterations=800
+
+[physics]
+viscosity=0.01
+density=1.0
+
+[labels]
+inlet=4
+//outlet=6
+walls=1 9 5 7 10 3
+
+[IO]
+patientName=fluid
+geometryData=../../../../data/mesh/stenosis.mesh
+dirResults=./stenosis/

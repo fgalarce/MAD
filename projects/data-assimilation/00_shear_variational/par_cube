@@ -1,0 +1,37 @@
+[MAD]
+verbose=5
+
+[FEM]
+nbVariables=1
+fe=p1
+nbDofsPerNode=3
+variableName=disp
+nbQuadraturePoints=1
+nbQuadraturePointsBD=1
+
+[solid]
+density=1.0
+walls=1 2 3 4 5 6
+
+[Time]
+amplitude=1.0
+period=1.0
+timeStep=1e-2
+nbIterations=410
+
+[IO]
+patientName=elasticity
+dirSyntheticField=../../pdes/08_wave/cube_yes/
+dirModel=../../pdes/08_wave/cube_yes/disp.00125.vct
+geometryData=../../../../data/mesh/cube_tetra_9kv.mesh
+dirResults=./cube/
+
+[observer]
+innerProduct=L2
+measures=../../../../data/measures/cube.00000.us
+modeMeasures=4d-flow
+voxelSize=1.0 1.0 1.0
+beamDir=0.0 1.0 0.0
+transDir=1.0 0.0 0.0
+start=0
+end=100

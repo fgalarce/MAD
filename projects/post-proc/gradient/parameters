@@ -1,0 +1,13 @@
+[FEM]
+innerProduct=H1
+nbQuadraturePoints=5
+
+[Time]
+start=0
+end=25
+
+[CFD]
+geometryData=../../data/mesh/venturi/venturi00000.mesh
+dirSyntheticField=../pbdw/venturi/
+patientName=v_star
+dirResults=./venturi/

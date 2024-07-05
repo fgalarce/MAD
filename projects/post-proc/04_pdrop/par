@@ -1,0 +1,24 @@
+[MAD]
+verbose=2
+
+[FEM]
+nbVariables=1
+fe=p1
+nbDofsPerNode=1
+variableName=p
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+innerProduct=L2
+hemodynamics=true
+
+[bc]
+bdLabels=2 3
+inlet=1
+
+[IO]
+start=833
+end=1665
+patientName=pdrop
+dirSyntheticField=MAD_RESULTS/convergence/96kv/
+geometryData=MAD_DATA/mesh/carotid/caroCritic_96kv.mesh
+dirResults=./results/

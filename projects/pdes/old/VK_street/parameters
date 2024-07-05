@@ -1,0 +1,20 @@
+[FEM]
+innerProduct=H1
+nbQuadraturePoints=4
+nbIterations=1160
+viscosity=0.005
+density=1
+timeStep=0.02
+nbDofsPerNode=2 1
+variableName=velocity pressure
+nbVariables=2
+
+[labels]
+inlet=1
+outlet=2
+walls=3
+
+[IO]
+patientName=vk-street
+geometryData=../../../../big_data/ellipse00028.o.mesh
+dirResults=./results/

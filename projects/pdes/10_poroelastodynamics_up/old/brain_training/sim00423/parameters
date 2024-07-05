@@ -1,0 +1,49 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=3 1
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+nbVariables=2
+variableName=solid_disp pressure
+
+[time]
+timeStep=1e-3
+nbIterations=160
+timeIntegration=newmark
+
+[fluid]
+viscosity=1e-2
+permeability=4.828227610389403e-09
+csf_pressure=1e4
+csf_factor=1.0735976360258628
+
+[solid]
+density=1.0
+youngModulus=809321.0865262196
+poissonRatio=0.449567763267298
+
+[boundaries]
+hemodynamics=true
+period=0.04
+amplitude=-1e3
+bcNeumann=1 0
+fixed_boundary=2
+walls=0 2 1
+
+[IO]
+start=80
+jump=1
+patientName=brain
+geometryData=../../../../data/mesh/brain/brain_alfonso/labelModel2/brain_3d.mesh
+dirResults=./brain_training/sim00423/
+
+[solver]
+solver=gmres
+preconditioner=asm
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=true
+reuse_preconditioner=true
+monitorKSP=true

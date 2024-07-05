@@ -1,0 +1,39 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=2 1
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=5e-2
+nbIterations=1000
+
+[physics]
+viscosity=1e-3
+density=1.0
+
+[bc]
+hemodynamics=true
+amplitude=-1.0
+inlet=3
+outlets=1
+backflowStab=false
+walls=0 2 4
+
+[IO]
+patientName=naca_ns
+geometryData=../../../../data/mesh/airfoil/naca_100kv.mesh
+dirResults=./naca_airfoil/
+
+[solver]
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=false
+reuse_preconditioner=false
+monitorKSP=false

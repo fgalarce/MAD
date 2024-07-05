@@ -1,0 +1,37 @@
+[MAD]
+verbose=5
+
+[MRE]
+start=50
+end=51
+voxelSize=0.2083333253860470 0.2083333253860470 0.2
+beamDir=0.0 1.0 0.0
+transDir=1.0 0.0 0.0
+#measures=/home/felipe/research/MAD/data/measures/VENC_120_HR_88/data_00000.us
+measures=./data_static.us
+#dirSyntheticField=../../pdes/13_navier_stokes_nonlinear/01_phantom/sim00000/
+dirSyntheticField=/home/felipe/research/simulations/phantom_300kv/phantom/
+modeMeasures=CFI
+
+[IO]
+geometryData=../../../../data/mesh/aorta_300kv.mesh
+patientName=pbdw
+dirResults=./results/
+#rieszRepresentersFolder=./brain_rr/
+#nbMeasures=600
+#nbMeasures=2295
+#nbMeasures=5409
+saveRieszRepresenters=false
+minimalOutput=false
+
+[FEM and POD]
+nbDofsPerNode=3
+variableName=velocity
+nbVariables=1
+innerProduct=l2
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+dirModel=/home/felipe/research/simulations/phantom_300kv/phantom_fine/
+method=mode
+gaussianNoiseLevel=0.0
+nbModes=20

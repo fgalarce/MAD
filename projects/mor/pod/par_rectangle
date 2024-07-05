@@ -1,0 +1,19 @@
+[FEM]
+innerProduct=l2
+nbVariables=3
+nbDofsPerNode=2 2 1
+variableName=solid_disp fluid_vel pressure
+nbQuadraturePoints=4
+
+[MOR]
+maniFolder=/Home/flow/galarce/MAD/data/rectangle/
+snaps_per_sim=1
+nbSimulations=101
+method=pod
+patientName=pod
+nbModes=100
+start=0
+
+[IO]
+geometryData=../../../../data/mesh/rectangle_inclusion.o.mesh
+dirResults=./rectangle/

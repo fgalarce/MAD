@@ -1,0 +1,36 @@
+[FEM]
+fe=p1 p1
+nbDofsPerNode=2 1
+nbQuadraturePoints=4
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=0.01
+nbIterations=1000
+
+[physics]
+viscosity=0.001
+density=1.0
+inlet_u0=1.1
+
+[labels]
+inlet=4
+outlets=2
+walls=1 3 5 6 7 8
+
+[IO]
+patientName=fluid
+geometryData=../../../../data/mesh/flow_past_a_cylinder_9cms.mesh
+dirResults=./fpc_9cms_Re_200/
+
+[solver]
+#initial_condition_vel=./2d_fpc_2/velocity.01000.vct
+#initial_condition_pre=./2d_fpc_2/pressure.01000.scl
+backflowStab=true
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=false
+reuse_preconditioner=false
+monitorKSP=false

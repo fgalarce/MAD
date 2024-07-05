@@ -1,0 +1,31 @@
+-- data file. Units are CGS --
+
+debug=yes
+
+[Finite Elements]
+innerProduct=H1
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+mass_matrix_path=../../data/mass.bin
+stiffness_matrix_path=../../data/stiff.bin
+mass_boundary_matrix_path=../../data/massBD.bin
+
+[geometry]
+geometryData=../../data/mesh/carotid.geo
+nbVertices=42659
+
+[ultrasound]
+CFDtimeStep=0.004
+UStimeStart=x
+UStimeStep=0.004
+UStimeEnd=x
+
+[patient]
+patientName=Nicolas
+organ=carotid
+
+[input/output]
+dirResults=x
+outputFormat=".ens"
+
+-- end of data file --

@@ -1,0 +1,22 @@
+[MAD]
+verbose=20
+
+[FEM]
+innerProduct=L2
+nbVariables=1
+nbDofsPerNode=2
+variableName=solid_disp
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+
+[IO]
+start=0
+nbIterations=100
+dirResults=./results/
+patientName=convergence
+
+[Interpolation: from templateGeometry (geo_i) to geometryData (geo_j)]
+templateGeometry=../../../../data/mesh/square/square_inclusion_13kv.mesh
+geometryData=../../../../data/mesh/square/square_inclusion_47kv.mesh
+solutionFolder1=../../pdes/PEDup_brain/kappa_7/results_inclusion_13kv/solid_disp.00025.vct
+solutionFolder2=../../pdes/PEDup_brain/kappa_7/results_inclusion_47kv/solid_disp.00025.vct

@@ -1,0 +1,31 @@
+[MAD]
+verbose=5
+
+[Measures]
+start=0
+end=10
+voxelSize=0.2 0.2 0.2
+measures=MAD_DATA/measures/carotid.00000.us
+dirSyntheticField=/Users/fgalarce/home/01_research/simulations/manifold_carotid/sim00000/
+
+[IO]
+geometryData=MAD_DATA/mesh/carotid/caroCritic_24kv.mesh
+patientName=pbdw
+dirResults=carotid
+modeVectors=split
+
+[PBDW]
+modeMeasures=scalarAverage
+nbDofsPerNode=1 1 1 1
+variableName=ux uy uz viscosity
+measureIt=0 1 2
+nbVariables=4
+innerProduct=l2 l2 l2 l2
+dirModel=/Users/fgalarce/home/01_research/simulations/carotid/
+method=mode
+nbModes=41
+
+[FEM]
+nbQuadraturePoints=4
+nbQuadraturePointsBD=6
+gaussianNoiseLevel=0.0

@@ -1,0 +1,36 @@
+[MAD]
+
+verbose=5
+[FEM]
+
+nbVariables=6
+fe=p1 p1 p1 p1 p1 p1
+nbDofsPerNode=2 2 1 1 1 1
+variableName=u_re u_im p_re p_im phi_re phi_im
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+[fluid]
+
+viscosity=1e-2
+permeability=1e-3 1e-4 1e-5
+csf_pressure=1e-2
+csf_factor=1.0
+[solid]
+
+density=1.0
+youngModulus=1e2 1e2 1e2
+poissonRatio=0.45 0.45 0.45
+[bc]
+
+frecuency=125
+top=4
+bottom=5
+[IO]
+
+patientName=layer
+geometryData=MAD_DATA/mesh/layers/layer_11kv.mesh
+dirResults=MAD_RESULTS/biot_frecuency/layered/
+[solver]
+
+solver=gmres
+preconditioner=lu

@@ -1,0 +1,16 @@
+[FEM]
+nbVariables=1
+nbDofsPerNode=3
+variableName=disp
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+bcNeumann=2
+
+[cooked so that max displacement is one]
+youngModulus=15000
+poissonRatio=0.45
+
+[IO]
+patientName=cantilever
+geometryData=../../../../mad_data/mesh/beam_fine.mesh
+dirResults=./results/

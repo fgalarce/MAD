@@ -1,0 +1,58 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1 p1 p1
+nbDofsPerNode=1 1 1 1
+innerProduct=H1 H1 H1 L2
+nbQuadraturePoints=4
+nbQuadraturePointsBD=6
+nbVariables=4
+variableName=ux uy uz p
+
+[time]
+timeStep=0.000937
+nbIterations=2016
+timeIntegration=BDF2
+
+[physics]
+density=1.06
+power_law_m=0.4350  # Hcr 70
+power_law_n=0.6760  # Hcr 70
+viscousTerm=symmetric
+cfd_stab=supg
+
+[bc]
+hemodynamics=true
+inlet=2
+backflowStab=true
+backflowCoeff=0.2
+walls=1
+
+[bc Windkessel]
+distalPressures0=107324.5 107324.5 107324.5 107324.5
+outlets=3 5 6 7
+resistances=274.0 1300.0 791.0 141.0
+capacitances=0.000508 0.00014416 0.0002788 0.0013690400000000002
+distalResistances=5675.0 19663.0 10048.0 2066.0
+
+[IO]
+writeNonLinearIterations=false
+patientName=phantom
+geometryData=mesh.mesh
+dirResults=./simvascular_hcr70/
+inflow_data=velocity_2cycles.flow
+
+[solver]
+solver=gmres
+preconditioner=asm
+nonLinearTolerance=1e-4
+nonLinearMaxIterations=15
+# non Newtonian case does not run properly when re-using the preconditioner
+reuse_preconditioner=false
+use_solution_as_guess_KSP=true
+ksp_tolerance=1e-6
+ksp_tolerance_absolute=1e-8
+ksp_max_iterations=1000
+ksp_restartGMRESiterations=400
+monitorKSP=true

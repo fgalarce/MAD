@@ -1,0 +1,19 @@
+[IO]
+patientName=distance
+dirResults=./training/
+
+[Model]
+nbSimulations=64
+nbModes=5
+problemType=vector
+maniFolder=../../data/venturi/dictionary/mesh00000/
+
+[Target]
+geometryData=../../data/venturi/mesh/venturi00000.mesh
+model=../../data/venturi/mor/mesh00000/
+templateModel=../../data/venturi/mor/mesh00000/
+
+[Finite Elements]
+innerProduct=L2
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4

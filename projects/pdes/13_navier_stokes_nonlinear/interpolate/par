@@ -1,0 +1,24 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=3 1
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=1e-3
+
+[IO]
+writeNonLinearIterations=false
+patientName=phantom
+geometryData=../../../../../data/mesh/phantom_cib/aorta_27kv.mesh
+geometry=../../../../../data/mesh/phantom_cib/aorta_161kv.mesh
+dirResults=./results/
+inflow_data=../../../../../data/mesh/phantom_cib/inflow/HR_88_1ms.txt
+start=0
+end=1100
+dirSyntheticField=../01_phantom/phantom2/

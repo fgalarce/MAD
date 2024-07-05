@@ -1,0 +1,43 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=2 1
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=1e-3
+nbIterations=1000
+
+[physics]
+//viscosity=1.0
+power_law_n=0.6
+power_law_m=0.01
+density=1.0
+amplitude=50
+
+[labels]
+inlet=1
+walls=3 4
+hemodynamics=true
+backflowStab=false
+
+[IO]
+start=0
+jump=1
+patientName=fluid
+geometryData=../../../../../data/mesh/fpc/fpc.00000.mesh
+dirResults=./results/
+writeNonLinearIterations=false
+
+[solver]
+solver=preonly
+preconditioner=lu
+#ksp_tolerance=1e-03
+#use_solution_as_guess_KSP=true
+#reuse_preconditioner=true
+#monitorKSP=true

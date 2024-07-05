@@ -1,0 +1,9 @@
+[IO]
+patientName=learning
+dirResults=./results_short/
+
+[Linear learning]
+noiseIterations=0
+geometryData=../../data/venturi/mesh/
+errorMatrix=../distance_october/E_short.txt
+nbMeshes=15

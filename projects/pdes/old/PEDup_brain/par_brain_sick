@@ -1,0 +1,42 @@
+[MAD]
+verbose=3
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=3 1
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+nbVariables=2
+variableName=solid_disp pressure
+
+[time]
+timeStep=1e-3
+nbIterations=400
+
+[fluid]
+viscosity=1e-2
+permeability=1e-9
+csf_pressure=1.3e+5
+
+[solid]
+density=1.0
+youngModulus=1e+5
+poissonRatio=0.4983
+
+[boundaries]
+period=1e-1
+amplitude=-1e+2
+bcNeumann=6
+
+[IO]
+patientName=poro
+geometryData=../../../../data/mesh/brain_alfonso/brain_3d.mesh
+dirResults=./results_sick/
+
+[solver]
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=false
+reuse_preconditioner=false
+monitorKSP=false

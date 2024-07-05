@@ -1,0 +1,56 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1 p1 p1
+nbDofsPerNode=1 1 1 1
+innerProduct=H1 H1 H1 L2
+nbQuadraturePoints=4
+nbQuadraturePointsBD=6
+nbVariables=4
+variableName=ux uy uz p
+
+[time]
+timeStep=1e-3
+nbIterations=1000
+timeIntegration=BDF2
+
+[physics]
+viscosity=0.03
+density=1.0
+viscousTerm=symmetric
+cfd_stab=supg
+
+[bc]
+hemodynamics=true
+inlet=2
+backflowStab=true
+backflowCoeff=0.2
+walls=1
+amplitude=10
+
+[bc Windkessel]
+outlets=3 4
+resistances=7501.5 7501.5
+distalResistances=60012 60012
+capacitances=1.6e-5 1.6e-5
+distalPressures0=1e4 1e4
+
+[IO]
+writeNonLinearIterations=false
+patientName=carotid
+geometryData=MAD_DATA/mesh/carotid/siphon_222kv.mesh
+dirResults=MAD_RESULTS/carotid/
+
+[solver]
+solver=gmres
+preconditioner=asm
+nonLinearTolerance=1e-3
+nonLinearMaxIterations=15
+reuse_preconditioner=false
+use_solution_as_guess_KSP=true
+ksp_tolerance=1e-6
+ksp_tolerance_absolute=1e-8
+ksp_max_iterations=1000
+ksp_restartGMRESiterations=400
+monitorKSP=true

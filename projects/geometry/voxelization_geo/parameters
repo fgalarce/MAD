@@ -1,0 +1,10 @@
+[Learning]
+patientName=voxelization
+dirResults=./results/
+geometryData=../../data/venturi/mesh/venturi00000.mesh
+voxelization_type=volume
+cartesian_grid=../../data/venturi/voxels.txt
+voxelSize=0.1 0.1 0.1
+
+[FEM]
+nbQuadraturePoints=5

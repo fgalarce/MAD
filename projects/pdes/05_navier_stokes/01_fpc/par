@@ -1,0 +1,37 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+variableName=velocity pressure
+nbDofsPerNode=2 1
+nbQuadraturePoints=1
+nbQuadraturePointsBD=1
+nbVariables=2
+
+[time]
+timeStep=1e-3
+nbIterations=150
+
+[physics]
+viscosity=0.035
+density=1.0
+
+[bc]
+amplitude=1.0
+inlet=1
+walls=3 4
+backflowStab=false
+
+[IO]
+patientName=toy
+geometryData=../../../../../data/mesh/fpc/fpc_3kv.mesh
+dirResults=./results/
+
+[solver]
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=false
+reuse_preconditioner=false
+monitorKSP=false

@@ -1,0 +1,16 @@
+[FEM]
+fe=p1
+nbDofsPerNode=1
+nbQuadraturePoints=4
+nbVariables=1
+variableName=vorticity
+
+[time]
+start=10
+end=60
+
+[IO]
+patientName=fluid
+geometryData=../../../../data/mesh/flow_past_a_cylinder_9cms.mesh
+maniFolder=../../pdes/NS_von_karman_SUPG/fpc_9cms_Re_100/velocity
+dirResults=./fpc_vorticity/

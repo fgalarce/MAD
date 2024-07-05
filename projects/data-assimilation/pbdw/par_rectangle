@@ -1,0 +1,32 @@
+[MAD]
+verbose=10
+
+[MEASURES]
+start=0
+end=1
+voxelSize=0.5 0.5 0.5
+beamDir=1.0 0.0 0.0
+transDir=0.0 1.0 0.0
+measures=../../../../data/measures/rectangle.00000.us
+#dirSyntheticField=../../../../data/rectangle/test/sim00000/solid_disp
+dirSyntheticField=../../pdes/PED_rectangle/rectangle_test/sim00000/solid_disp
+modeMeasures=CFI
+
+[IO]
+geometryData=../../../../data/mesh/rectangle_inclusion.o.mesh
+patientName=pbdw
+dirResults=rectangle
+
+[FEM]
+innerProduct=l2
+nbQuadraturePoints=4
+nbVariables=1
+nbDofsPerNode=2
+fe=p1
+nbVariables=1
+variableName=solid_disp
+
+[POD]
+dirModel=../../../../data/rectangle/pod/
+method=mode
+nbModes=20

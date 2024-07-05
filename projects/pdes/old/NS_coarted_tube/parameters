@@ -1,0 +1,25 @@
+[FEM]
+fe=p1 p1
+nbDofsPerNode=3 1
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=0.001
+nbIterations=225
+
+[physics]
+viscosity=0.035
+density=1.0
+
+[labels]
+inlet=3
+outlet=2
+walls=1
+
+[IO]
+patientName=fluid
+geometryData=../../../../data/mesh/coarted_aorta.mesh
+dirResults=./coarted_tube/

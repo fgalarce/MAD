@@ -1,0 +1,5 @@
+start=1
+end=11
+dirResults=./results/
+patientName=aorta
+geometryData=../../../../mad_data/mesh/phantom_aorta.mesh

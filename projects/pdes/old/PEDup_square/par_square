@@ -1,0 +1,47 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=2 1
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+nbVariables=2
+variableName=solid_disp pressure
+
+[time]
+timeStep=1e-4
+nbIterations=250
+
+[fluid]
+viscosity=1e-2
+permeability=1e-8
+csf_pressure=1e4
+
+[solid]
+density=1.0
+youngModulus=1e5
+poissonRatio=0.45
+
+[boundaries]
+period=1e-1
+amplitude=-5e3
+bcNeumann=2
+fixed_boundary=4
+walls=1 3 4
+
+[IO]
+start=0
+jump=1
+patientName=poro
+geometryData=../../../../data/mesh/square/big_square_h1cm.mesh
+dirResults=./square1cm/
+
+[solver]
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=false
+reuse_preconditioner=false
+monitorKSP=false
+timeIntegration=newmark

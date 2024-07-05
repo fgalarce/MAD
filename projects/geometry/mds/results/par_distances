@@ -1,0 +1,20 @@
+[MAD]
+verbose=4
+
+[What to compute the distances with]
+space_1=../../../../data/fpc/geo00000/pod/velocity_mode
+space_2=../../../../data/fpc/geo00059/pod/piola/00000/velocity_mode
+geometryData=../../../../data/mesh/fpc/fpc.00000.mesh
+
+[Ambient space and Mapping]
+innerProduct=L2
+nbDofsPerNode=2
+variableName=piola_mode
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+nbModes=41
+
+[IO]
+patientName=distances
+dirResults=./results/
+/data/fpc/geo00000/pod/piola/

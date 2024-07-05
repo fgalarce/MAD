@@ -1,0 +1,14 @@
+[MDS]
+patientName=MDS
+dirResults=./results/
+nbMeshes=16
+nbModes=2
+surfaceMapping=../../data/venturi/mappings/
+geometryData=../../data/venturi/mesh/
+surfaceMappingInverse=../../data/venturi/mor/
+dissimilarity_matrix=./D2.txt
+
+[Finite Elements]
+innerProduct=L2
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4

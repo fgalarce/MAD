@@ -1,0 +1,12 @@
+include ../../makefile_header_ubuntu
+
+compile_exe: ls pdrop
+
+ls: mixed_pbdw.cpp 
+	$(MAKE) -o mixed_pbdw.exe mixed_pbdw.cpp -L$(PETSC_LIB) -lpetsc -lslepc -L$(MPI_LIB) -lmpi_cxx -L$(CFD) -lcfd -L$(CORE) -lcore -L$(FEM) -lfem -L$(IO) -lio -L$(TOOLS) -ltools
+
+pdrop: pdrop.cpp 
+	$(MAKE) -o pdrop.exe pdrop.cpp -L$(PETSC_LIB) -lpetsc -lslepc -L$(MPI_LIB) -lmpi_cxx -L$(CFD) -lcfd -L$(CORE) -lcore -L$(FEM) -lfem -L$(IO) -lio -L$(TOOLS) -ltools
+
+clean:
+	rm *.exe

@@ -1,0 +1,21 @@
+[FEM]
+innerProduct=L2 L2
+nbVariables=2
+nbDofsPerNode=3 1
+variableName=solid_disp pressure
+nbQuadraturePoints=5
+weight_mass=1e-18
+
+[MOR]
+maniFolder=../../pdes/poroelastodynamics_up/brain_training/
+snaps_per_sim=40
+nbSimulations=512
+method=pod
+patientName=pod
+nbModes=150
+start=40
+jump=1
+
+[IO]
+geometryData=../../../../data/mesh/brain/brain_alfonso/labelModel2/brain_3d.mesh
+dirResults=./brain_joint_shrinked/

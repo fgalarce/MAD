@@ -1,0 +1,6 @@
+include ../../makefile_header_ubuntu
+
+stokes: pbdw.cpp
+	$(MAKE) -o pbdw.exe pbdw.cpp -L$(PETSC_LIB) -lpetsc -lslepc -L$(MPI_LIB) -lmpi -L$(CFD) -lcfd -L$(ASSIMILATION) -lassimilation -L$(FEM) -lfem -L$(IO) -lio -L$(TOOLS) -ltools -L$(LINEAR_ALGEBRA) -llinear_algebra
+clean:
+	rm *.o *.exe

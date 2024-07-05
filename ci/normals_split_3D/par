@@ -1,0 +1,30 @@
+[MAD]
+verbose=5
+debug=no
+
+[FEM]
+fe=p1 p1 p1 p1
+variableName=ux uy uz p
+innerProduct=H1 H1 H1 L2
+nbDofsPerNode=1 1 1 1
+nbQuadraturePoints=4
+nbQuadraturePointsBD=6
+nbVariables=4
+
+[IO]
+patientName=toy
+geometryData=MAD_DATA/mesh/ci/tube_2kv.mesh
+dirResults=MAD_RESULTS/ci/normals_split_3D/
+
+[solver]
+solver=gmres
+preconditioner=asm
+nonLinearTolerance=1e-3
+nonLinearMaxIterations=20
+reuse_preconditioner=false
+use_solution_as_guess_KSP=true
+ksp_tolerance=1e-6
+ksp_tolerance_absolute=1e-9
+ksp_max_iterations=2000
+ksp_restartGMRESiterations=2000
+monitorKSP=true

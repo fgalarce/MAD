@@ -1,0 +1,7 @@
+geometryData=../../data/mesh/carotid.geo
+mass_matrix_path=../../data/matricesCaroModerate42kv/massMatrix.mb
+stiffness_matrix_path=../../data/matricesCaroModerate42kv/stiffnessMatrix.mb
+nbModes=150
+dirResults=./results/
+
+

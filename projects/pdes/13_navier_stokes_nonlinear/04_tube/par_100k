@@ -1,0 +1,52 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1 p1 p1
+nbDofsPerNode=1 1 1 1
+innerProduct=H1 H1 H1 L2
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+nbVariables=4
+variableName=ux uy uz p
+
+[time]
+timeStep=0.01
+nbIterations=500
+timeIntegration=BDF2
+
+[physics]
+viscosity=0.01
+density=1.0
+amplitude=1.5
+viscousTerm=symmetric
+
+[labels]
+inlet=2
+outlet=3
+walls=1
+hemodynamics=true
+backflowStab=true
+
+[IO]
+patientName=fluid
+geometryData=../../../../../data/mesh/cylinder/tube_100kv.mesh
+dirResults=./results100k/
+writeNonLinearIterations=false
+
+[solver]
+cfd_stab=supg
+#solver=preonly
+#preconditioner=lu
+solver=gmres
+preconditioner=asm
+nonLinearTolerance=1e-2
+useModifiedGramSchmidt=false
+nonLinearMaxIterations=1000
+reuse_preconditioner=false
+use_solution_as_guess_KSP=true
+ksp_tolerance=1e-6
+ksp_tolerance_absolute=1e-9
+ksp_max_iterations=500
+ksp_restartGMRESiterations=300
+monitorKSP=true

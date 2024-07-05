@@ -1,0 +1,46 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=2 1
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+nbVariables=2
+variableName=solid_disp pressure
+
+[time]
+timeStep=5e-5
+nbIterations=400
+
+[fluid]
+viscosity=0.01
+permeability=1e-8 1e-8
+csf_pressure=1e4
+
+[solid]
+density=1.0
+youngModulus=1e4 1e4
+poissonRatio=0.49 0.49
+
+[boundaries]
+period=1e-2
+amplitude=-5e2
+bcNeumann=2
+fixed_boundary=4
+walls=1 2 3 4
+
+[IO]
+start=200
+jump=2
+patientName=poro
+geometryData=../../../../data/mesh/square/square_inclusion_3kv.mesh
+dirResults=./results_inclusion/
+
+[solver]
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=false
+reuse_preconditioner=false
+monitorKSP=false

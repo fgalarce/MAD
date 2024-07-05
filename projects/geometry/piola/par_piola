@@ -1,0 +1,26 @@
+[MAD]
+verbose=4
+
+[Template geometry]
+dirSyntheticField=../../../../data/fpc/geo00070/pod/velocity_mode
+templateGeometry=../../../../data/mesh/fpc/fpc.00070.mesh
+surfaceMapping=../../../../data/fpc/mappings/geo00070/lddmm_00071.00000.vct
+
+[Target geometry]
+geometryData=../../../../data/mesh/fpc/fpc.00071.mesh
+surfaceMappingInverse=../../../../data/fpc/mappings/geo00071/lddmm_00070.00000.vct
+
+[Ambient space and Mapping]
+nbDofsPerNode=2
+variableName=piola_mode
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+nbModes=50
+
+[Harmonic extension]
+nbIterations=10
+viscosity=0.01
+
+[IO]
+patientName=piola
+dirResults=./piola/

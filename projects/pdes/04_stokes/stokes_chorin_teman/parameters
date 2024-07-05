@@ -1,0 +1,20 @@
+[CFD]
+viscosity=0.03
+density=1.0
+nbIterations=1
+timeStep=0.02
+wall=1
+inlet=3
+radius_inlet=0.5
+outlets=2 4
+
+[Finite Elements]
+mixed_problem=yes
+nbQuadraturePoints=5
+problemType=vector
+
+[IO]
+geometryData=../../data/mesh/bifurcation.mesh
+patientName=stokes
+dirResults=./results/
+outputFormat=".ens"

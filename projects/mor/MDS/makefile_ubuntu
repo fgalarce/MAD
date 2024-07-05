@@ -1,0 +1,9 @@
+include ../../makefile_header_ubuntu
+
+compile: compile_exe
+
+compile_exe: olga.cpp 
+	$(MAKE) -o olga.exe olga.cpp -L$(PETSC_LIB) -lpetsc -lslepc -L$(MPI_LIB) -lmpi -L$(CFD) -lcfd -L$(LINEAR_ALGEBRA) -llinear_algebra -L$(ASSIMILATION) -lassimilation -L$(FEM) -lfem -L$(IO) -lio -L$(TOOLS) -ltools 
+
+clean:
+	rm *.exe

@@ -1,0 +1,22 @@
+innerProduct=H1
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+mass_boundary_matrix_path=../../data/matricesCaroModerate42kv/massBD.bin
+mass_matrix_path=../../data/matricesCaroModerate42kv/massMatrix.mb
+stiffness_matrix_path=../../data/matricesCaroModerate42kv/stiffnessMatrix.mb
+# test functions path
+dirModel=../../data/test_functions/
+geometryData=../../data/mesh/carotid.geo
+bdLabels=2 3 4
+CFDtimeStep=0.004
+UStimeStart=0.0
+UStimeStep=0.004
+UStimeEnd=0.11774537591
+patientName=cfd
+dirResults=./results/sim00001/30modes/cls_noise_500_it0/
+outputFormat=".ens"
+viscosity=0.03
+density=1.0
+viscosity=0.03
+timeStep=0.004
+minimalOutput=yes

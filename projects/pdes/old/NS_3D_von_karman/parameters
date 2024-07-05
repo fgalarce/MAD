@@ -1,0 +1,32 @@
+[FEM]
+fe=p1 p1
+nbDofsPerNode=3 1
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=0.002
+nbIterations=15000
+
+[physics]
+viscosity=0.035
+density=1.0
+
+[labels]
+inlet=33
+walls=21 29 37 49 41 45 50 6
+
+[IO]
+patientName=fluid
+geometryData=../../../../data/mesh/fpc_delgada.o.mesh
+dirResults=./3d_fpc/
+
+[solver]
+solver=gmres
+preconditioner=asm
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=true
+reuse_preconditioner=false
+monitorKSP=false

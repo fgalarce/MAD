@@ -1,0 +1,17 @@
+[CFD]
+viscosity=0.03
+timeStep=0.01
+nbIterations=50
+density=1.0
+inlet=2
+wall=1
+
+[Finite Elements]
+mixed_problem=yes
+nbQuadraturePoints=5
+problemType=vector
+
+geometryData=../../data/mesh/tube_2kv.mesh
+patientName=stokes
+dirResults=./ci/results/
+outputFormat=".ens"

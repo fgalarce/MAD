@@ -1,0 +1,23 @@
+[FEM]
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+nbVariables=2
+nbDofsPerNode=3 1
+variableName=velocity pressure
+fe=p1 p1
+
+[Stokes]
+nbIterations=25
+inlet_u0=1.0
+viscosity=0.01
+density=1.0
+timeStep=0.02
+inlet=2
+outlet=3
+walls=1
+
+[IO]
+patientName=stokes
+geometryData=../../../../data/venturi/venturi00014.mesh
+dirResults=./results/
+

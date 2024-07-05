@@ -1,0 +1,11 @@
+geometryData=../../data/mesh/carotid.geo
+nbModes=51
+dirResults=./results/
+innerProduct=H1
+mixed_problem=yes
+nbQuadraturePoints=5
+mass_matrix_path=../../data/matricesCaroModerate42kv/massMatrixMixed_velocity.bin
+stiffness_matrix_path=../../data/matricesCaroModerate42kv/stiffnessMatrixMixed_velocity.bin
+mass_matrix_path_pressure=../../data/matricesCaroModerate42kv/massMatrixMixed_pressure.bin
+patientName=none
+minimalOutput=yes

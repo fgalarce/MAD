@@ -1,0 +1,10 @@
+[MAD]
+verbose=4
+
+[Mds]
+dissimilarity_matrix=./D.txt
+# nb of geometries. TODO: add nbGeometries variable
+nbModes=16
+
+[IO]
+dirResults=./results/

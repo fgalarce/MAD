@@ -1,0 +1,30 @@
+[MAD]
+verbose=5
+
+[MRE]
+start=40
+end=80
+voxelSize=1.0 1.0 1.0
+beamDir=0.0 1.0 0.0
+transDir=1.0 0.0 0.0
+nbVoxelsX=14
+nbVoxelsY=17
+measures=../../../../data/measures/brain.00000.us
+dirSyntheticField=../../pdes/poroelastodynamics_up/brain_training/sim00334/
+modeMeasures=4d-flow
+
+[IO]
+geometryData=../../../../data/mesh/brain/brain_alfonso/labelModel2/brain_3d.mesh
+patientName=transducer
+dirResults=./pressure/sim00334/
+#saveRieszRepresenters=false
+#nbMeasures=600
+#rieszRepresentersFolder=../../data-assimilation/pbdw/brain_rr/
+
+[Ambient space]
+innerProduct=L2
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+nbVariables=1
+nbDofsPerNode=3
+variableName=solid_disp

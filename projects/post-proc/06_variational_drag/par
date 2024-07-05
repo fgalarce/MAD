@@ -1,0 +1,29 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1 p1
+nbDofsPerNode=1 1 1
+innerProduct=H1 H1 L2
+nbQuadraturePoints=4
+nbQuadraturePointsBD=1
+nbVariables=3
+variableName=ux uy p
+
+viscosity=0.001
+density=1.0
+
+[wss]
+timeStep=0.01
+#dirSyntheticField=./results_profiles
+dirSyntheticField=/Users/fgalarce/home/01_research/MAD/source/projects/pdes/13_navier_stokes_nonlinear/00_fpc/00_fastVonKarman/results/
+dirTest=../../pdes/13_navier_stokes_nonlinear/00_fpc/05_Vstokes/results_Vstokes
+start=0
+jump=1
+end=999
+walls=4
+
+[IO]
+patientName=wss
+geometryData=fpc_3kv.mesh
+dirResults=./wss/

@@ -1,0 +1,9 @@
+include ../../makefile_header_ubuntu
+
+compile_exe: stokes_windkessel
+
+stokes_windkessel: stokes_windkessel.cpp 
+	$(MAKE) -o stokes_windkessel.exe stokes_windkessel.cpp -L$(PETSC_LIB) -lpetsc -lslepc -L$(MPI_LIB) -lmpi -L$(CFD) -lcfd -L$(CORE) -lcore -L$(FEM) -lfem -L$(IO) -lio -L$(TOOLS) -ltools
+
+clean:
+	rm *.exe

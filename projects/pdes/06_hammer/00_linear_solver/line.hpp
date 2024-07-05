@@ -1,0 +1,79 @@
+/*=============================================================================
+  This file is part of the code MAD 
+  Multi-physics for mechanicAl engineering and Data assimilation
+  Copyright (C) 2021-2023,
+    
+     Felipe Galarce at INRIA
+
+  MDMA is free software; you can redistribute it and/or modify it under
+  the terms of the GNU Lesser General Public License as published by the Free
+  Software Foundation; either version 2.1 of the License, or (at your option)
+  any later version.
+
+  MDMA is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for
+  more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with MDMA. If not, see http://www.gnu.org/licenses/.
+  =============================================================================*/
+
+#include <mad.hpp>
+
+vector<double> right(vector<double> x, double t, Parameters par){
+
+  // gradual closure -> T_star > 0
+  double T_star = par.closureTime();
+  vector<double> bc(par.nbDofsPerNode()[0]);
+  if (t < T_star){
+    bc[0] = (T_star - t)/T_star;
+  } else {
+    bc[0] = 0.0;
+  }
+  return bc;
+}
+
+vector<double> left(vector<double> x, double t, Parameters par){
+  vector<double> bc(par.nbDofsPerNode()[0], 1.0);
+  return bc;
+}
+
+class BoundaryCondition{
+
+  public:
+
+    BoundaryCondition(){}
+    ~BoundaryCondition(){};
+
+    void initialize(Boundary & boundary, Geometry & geometry, Parameters parameters){
+      par = parameters;
+      geo = geometry;
+      bd = boundary;
+    }
+
+    /* update time, declare and impose boundary conditions */
+    void applyBC(Mat A, Vec b, double t){
+      bd.time(t); 
+      /* Valve  */
+      bd.Dirichlet(1, right, 0);
+      /* Hidrostatic pressure */
+      bd.Dirichlet(0, left, 1);
+      bd.block(A, "symmetric");
+      bd.block(b, "symmetric");
+    }
+
+    void solve(Mat A, Vec u, double t, Hammer & hammer){
+      Vec b = hammer.assembleRHS();
+      Mat LHS = hammer.assembleLHS(A); 
+      applyBC(LHS, b, t); 
+      hammer.setLHS(LHS);
+      hammer.solve(b, u);
+    }
+
+  private:
+    Boundary bd;
+    Geometry geo;
+    Parameters par;
+
+};

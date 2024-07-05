@@ -1,0 +1,21 @@
+[CFD]
+viscosity=1.0
+density=1.0
+nbIterations=100
+timeStep=0.02
+wall=1
+inlet=2
+outlets=3
+inlet_u0=1
+inlet_symmetry=0.3
+
+[Finite Elements]
+mixed_problem=yes
+nbQuadraturePoints=5
+problemType=vector
+
+[IO]
+geometryData=/Users/fgalarce/Downloads/vtu_mella/vessel_fine.mesh
+patientName=stokes
+dirResults=./results/
+outputFormat=".ens"

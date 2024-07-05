@@ -1,0 +1,6 @@
+verbose=3
+dirResults=./results/
+patientName=boundaries
+geometryData=../../../../data/mesh/brain/brain_alfonso/brain_3d_fine.mesh
+exportSurfaceOnly=true
+cleanLabels=true

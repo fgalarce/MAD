@@ -1,0 +1,22 @@
+[FEM]
+innerProduct=H1 H1 H1 H1
+factorInnerProduct=1.0 1.0 1.0 1.0
+nbVariables=4
+nbDofsPerNode=1 1 1 1
+variableName=ux uy uz viscosity
+nbQuadraturePoints=4
+nbQuadraturePointsBD=6
+
+[MOR]
+maniFolder=/Users/fgalarce/home/01_research/simulations/manifold_carotid/
+snaps_per_sim=90
+nbSimulations=1
+method=pod
+patientName=pod
+nbModes=5
+start=100
+jump=1
+
+[IO]
+geometryData=MAD_DATA/mesh/carotid/caroCritic_24kv.mesh
+dirResults=./carotid/

@@ -1,0 +1,46 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=3 1
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=5e-3
+nbIterations=480
+
+[physics]
+viscosity=0.035
+density=1
+
+[bc]
+hemodynamics=true
+period=0.8
+amplitude=75.0
+inlet=2
+backflowStab=true
+walls=1
+
+[bc Windkessel]
+outlets=5 4 6 7 3
+resistances=2e1 2e1 2e1 2e1 1e0
+distalResistances=4e2 4e2 5e2 4e2 1e1
+capacitances=1e-4 1e-4 1e-4 1e-4 5e-3
+distalPressures0=1e5 1e5 1e5 1e5 1e5
+
+[IO]
+patientName=phantom
+geometryData=../../../../data/mesh/phantom_cib/aorta.mesh
+dirResults=./aorta/
+
+[solver]
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-09
+#use_solution_as_guess_KSP=true
+reuse_preconditioner=true
+#monitorKSP=true

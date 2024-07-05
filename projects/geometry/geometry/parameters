@@ -1,0 +1,21 @@
+[IO]
+patientName=mode
+dirResults=./results/
+
+[Template]
+templateGeometry=../../data/venturi/mesh/venturi00000.mesh
+surfaceMapping=../../data/venturi/mappings/00000/lddmm_00013.vct
+dirModel=../../data/venturi/mor/mesh00000/
+
+[Target]
+geometryData=../../data/venturi/mesh/venturi00013.mesh
+surfaceMappingInverse=../../data/venturi/mappings/00013/lddmm_00000.vct
+
+[Ambient space and Mapping]
+nbModes=35
+usePiola=yes
+problemType=vector
+wall=1
+innerProduct=L2
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4

@@ -1,0 +1,17 @@
+[FEM]
+nbDofsPerNode=2 1
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+nbIterations=100
+maniFolder=/Home/flow/galarce/MAD/data/von_karman/geo00000/training_set/sim00092/
+
+[IO]
+patientName=fluid
+<<<<<<< HEAD
+geometryData=/Home/flow/galarce/flow_past_a_cylinder.o.mesh
+=======
+geometryData=../../../../data/mesh/flow_past_a_cylinder.o.mesh
+>>>>>>> 8acc0a9c3e72a586195dccd8cb353ca9202315ee
+dirResults=./results/

@@ -1,0 +1,32 @@
+[IO]
+patientName=distance
+<<<<<<< HEAD
+dirResults=./dissimilarity/
+
+[Model]
+nbModes=5
+=======
+dirResults=./results_olga_super/
+
+[Model]
+nbModes=20
+>>>>>>> 2bf96218aebe4fdce5fcc2b7ac75d1fd6db9973a
+problemType=vector
+
+[Template]
+templateModel=../pod/results1_super/
+
+[Target]
+geometryData=../../data/venturi/mesh/venturi00000.mesh
+model=../pod/results2_super/
+
+[Finite Elements]
+innerProduct=L2
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 2bf96218aebe4fdce5fcc2b7ac75d1fd6db9973a

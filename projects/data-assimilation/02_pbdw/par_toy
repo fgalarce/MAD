@@ -1,0 +1,37 @@
+[MAD]
+verbose=5
+
+[Measures]
+start=300
+end=301
+voxelSize=1.0 1.0 1.0
+measures=MAD_DATA/measures/toy.txt
+scaleUnits=1.0
+useSyntheticMeasures=yes
+dirSyntheticField=/Users/fgalarce/home/01_research/MAD/results/sim00000/
+gaussianNoiseLevel=0.0
+
+[IO]
+geometryData=MAD_DATA/mesh/simvascular/tube_simvascular_coarse.mesh
+patientName=pbdw
+dirResults=./toy/
+modeVectors=split
+
+[PBDW]
+modeMeasures=scalarAverage
+nbDofsPerNode=1
+variableName=uz
+measureIt=0
+nbVariables=1
+innerProduct=l2
+factorInnerProduct=1.0
+dirModel=/Users/fgalarce/home/01_research/MAD/source/projects/mor/pod/toy/
+nbModes=100
+beamDir=1.0 0.0 0.0
+transDir=0.0 1.0 0.0
+solver=preonly
+preconditioner=lu
+
+[FEM]
+nbQuadraturePoints=4
+nbQuadraturePointsBD=6

@@ -1,0 +1,194 @@
+\usepackage[utf8]{inputenc}
+
+\usepackage[left=1in,right=1in,top=1in,bottom=1in,includefoot,includehead,headheight=13.6pt]{geometry}
+
+\usepackage{xcolor}
+\definecolor{darkolivegreen}{rgb}{0.33, 0.42, 0.18}
+\definecolor{celestialblue}{rgb}{0.29, 0.59, 0.82}
+
+\usepackage[colorlinks,
+            linkcolor=darkolivegreen,
+            citecolor=darkolivegreen,
+            urlcolor=darkolivegreen]{hyperref}
+
+\hypersetup{pdftitle={CGTJS}, pdfauthor={Felipe Galarce Marin}, 
+}
+
+\usepackage{fullpage}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{thmtools, thm-restate}
+\usepackage{dsfont}
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs=true}
+\usepackage{graphicx}   
+\usepackage{subfigure}
+\usepackage{color}
+\usepackage{setspace}
+\onehalfspacing
+
+%% algorithms
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+%\usepackage{soul}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{note}[theorem]{Note}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\numberwithin{equation}{section} % Number eqs with section-number
+
+% caligraphic capital letters
+\newcommand{\cA}{\ensuremath{\mathcal{A}}}
+\newcommand{\cB}{\ensuremath{\mathcal{B}}}
+\newcommand{\cC}{\ensuremath{\mathcal{C}}}
+\newcommand{\cD}{\ensuremath{\mathcal{D}}}
+\newcommand{\cE}{\ensuremath{\mathcal{E}}}
+\newcommand{\cF}{\ensuremath{\mathcal{F}}}
+\newcommand{\cG}{\ensuremath{\mathcal{G}}}
+\newcommand{\cH}{\ensuremath{\mathcal{H}}}
+\newcommand{\cI}{\ensuremath{\mathcal{I}}}
+\newcommand{\cJ}{\ensuremath{\mathcal{J}}}
+\newcommand{\cK}{\ensuremath{\mathcal{K}}}
+\newcommand{\cL}{\ensuremath{\mathcal{L}}}
+\newcommand{\cM}{\ensuremath{\mathcal{M}}}
+\newcommand{\cN}{\ensuremath{\mathcal{N}}}
+\newcommand{\cO}{\ensuremath{\mathcal{O}}}
+\newcommand{\cP}{\ensuremath{\mathcal{P}}}
+\newcommand{\cQ}{\ensuremath{\mathcal{Q}}}
+\newcommand{\cR}{\ensuremath{\mathcal{R}}}
+\newcommand{\cS}{\ensuremath{\mathcal{S}}}
+\newcommand{\cT}{\ensuremath{\mathcal{T}}}
+\newcommand{\cU}{\ensuremath{\mathcal{U}}}
+\newcommand{\cV}{\ensuremath{\mathcal{V}}}
+\newcommand{\cW}{\ensuremath{\mathcal{W}}}
+\newcommand{\cX}{\ensuremath{\mathcal{X}}}
+\newcommand{\cY}{\ensuremath{\mathcal{Y}}}
+\newcommand{\cZ}{\ensuremath{\mathcal{Z}}}
+
+% Blackboard Bold capital letters
+\newcommand{\bA}{\ensuremath{\mathbb{A}}}
+\newcommand{\bB}{\ensuremath{\mathbb{B}}}
+\newcommand{\bC}{\ensuremath{\mathbb{C}}}
+\newcommand{\bD}{\ensuremath{\mathbb{D}}}
+\newcommand{\bE}{\ensuremath{\mathbb{E}}}
+\newcommand{\bF}{\ensuremath{\mathbb{F}}}
+\newcommand{\bG}{\ensuremath{\mathbb{G}}}
+\newcommand{\bH}{\ensuremath{\mathbb{H}}}
+\newcommand{\bI}{\ensuremath{\mathbb{I}}}
+\newcommand{\bJ}{\ensuremath{\mathbb{J}}}
+\newcommand{\bK}{\ensuremath{\mathbb{K}}}
+\newcommand{\bL}{\ensuremath{\mathbb{L}}}
+\newcommand{\bM}{\ensuremath{\mathbb{M}}}
+\newcommand{\bN}{\ensuremath{\mathbb{N}}}
+\newcommand{\bO}{\ensuremath{\mathbb{O}}}
+\newcommand{\bP}{\ensuremath{\mathbb{P}}}
+\newcommand{\bQ}{\ensuremath{\mathbb{Q}}}
+\newcommand{\bR}{\ensuremath{\mathbb{R}}}
+\newcommand{\bS}{\ensuremath{\mathbb{S}}}
+\newcommand{\bT}{\ensuremath{\mathbb{T}}}
+\newcommand{\bU}{\ensuremath{\mathbb{U}}}
+\newcommand{\bV}{\ensuremath{\mathbb{V}}}
+\newcommand{\bW}{\ensuremath{\mathbb{W}}}
+\newcommand{\bX}{\ensuremath{\mathbb{X}}}
+\newcommand{\bY}{\ensuremath{\mathbb{Y}}}
+\newcommand{\bZ}{\ensuremath{\mathbb{Z}}}
+
+% Pure Bold capital letters
+\newcommand{\pbA}{\ensuremath{\textbf{A}}}
+\newcommand{\pbB}{\ensuremath{\textbf{B}}}
+\newcommand{\pbC}{\ensuremath{\textbf{C}}}
+\newcommand{\pbD}{\ensuremath{\textbf{D}}}
+\newcommand{\pbE}{\ensuremath{\textbf{E}}}
+\newcommand{\pbF}{\ensuremath{\textbf{F}}}
+\newcommand{\pbG}{\ensuremath{\textbf{G}}}
+\newcommand{\pbH}{\ensuremath{\textbf{H}}}
+\newcommand{\pbI}{\ensuremath{\textbf{I}}}
+\newcommand{\pbJ}{\ensuremath{\textbf{J}}}
+\newcommand{\pbK}{\ensuremath{\textbf{K}}}
+\newcommand{\pbL}{\ensuremath{\textbf{L}}}
+\newcommand{\pbM}{\ensuremath{\textbf{M}}}
+\newcommand{\pbN}{\ensuremath{\textbf{N}}}
+\newcommand{\pbO}{\ensuremath{\textbf{O}}}
+\newcommand{\pbP}{\ensuremath{\textbf{P}}}
+\newcommand{\pbQ}{\ensuremath{\textbf{Q}}}
+\newcommand{\pbR}{\ensuremath{\textbf{R}}}
+\newcommand{\pbS}{\ensuremath{\textbf{S}}}
+\newcommand{\pbT}{\ensuremath{\textbf{T}}}
+\newcommand{\pbU}{\ensuremath{\textbf{U}}}
+\newcommand{\pbV}{\ensuremath{\textbf{V}}}
+\newcommand{\pbW}{\ensuremath{\textbf{W}}}
+\newcommand{\pbX}{\ensuremath{\textbf{X}}}
+\newcommand{\pbY}{\ensuremath{\textbf{Y}}}
+\newcommand{\pbZ}{\ensuremath{\textbf{Z}}}
+
+% Bold non-capital letters
+\newcommand{\by}{\ensuremath{\textbf{y}}}
+\newcommand{\bell}{\ensuremath{\mathbb{\ell}}}
+
+% \mathrm capital letters
+\newcommand{\rA}{\ensuremath{\mathrm{A}}}
+\newcommand{\rB}{\ensuremath{\mathrm{B}}}
+\newcommand{\rC}{\ensuremath{\mathrm{C}}}
+\newcommand{\rD}{\ensuremath{\mathrm{D}}}
+\newcommand{\rE}{\ensuremath{\mathrm{E}}}
+\newcommand{\rF}{\ensuremath{\mathrm{F}}}
+\newcommand{\rG}{\ensuremath{\mathrm{G}}}
+\newcommand{\rH}{\ensuremath{\mathrm{H}}}
+\newcommand{\rI}{\ensuremath{\mathrm{I}}}
+\newcommand{\rJ}{\ensuremath{\mathrm{J}}}
+\newcommand{\rK}{\ensuremath{\mathrm{K}}}
+\newcommand{\rL}{\ensuremath{\mathrm{L}}}
+\newcommand{\rM}{\ensuremath{\mathrm{M}}}
+\newcommand{\rN}{\ensuremath{\mathrm{N}}}
+\newcommand{\rO}{\ensuremath{\mathrm{O}}}
+\newcommand{\rP}{\ensuremath{\mathrm{P}}}
+\newcommand{\rQ}{\ensuremath{\mathrm{Q}}}
+\newcommand{\rR}{\ensuremath{\mathrm{R}}}
+\newcommand{\rS}{\ensuremath{\mathrm{S}}}
+\newcommand{\rT}{\ensuremath{\mathrm{T}}}
+\newcommand{\rU}{\ensuremath{\mathrm{U}}}
+\newcommand{\rV}{\ensuremath{\mathrm{V}}}
+\newcommand{\rW}{\ensuremath{\mathrm{W}}}
+\newcommand{\rX}{\ensuremath{\mathrm{X}}}
+\newcommand{\rY}{\ensuremath{\mathrm{Y}}}
+\newcommand{\rZ}{\ensuremath{\mathrm{Z}}}
+
+% shortcuts 
+\def\[{\left[}
+\def\]{\right]}
+\def\<{\langle}
+\def\>{\rangle}
+\def\({\left(}
+\def\){\right)}
+\def\[{\left [}
+\def\]{\right]}
+\def\({\left(}
+\def\){\right)}
+
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\renewcommand{\ker}{\ensuremath{\operatorname{ker}}}
+\newcommand{\opt}{\ensuremath{\mathrm{opt}}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\arginf}{arg\,inf}
+\DeclareMathOperator*{\argsup}{arg\,sup}
+
+\newcommand{\rd}{\ensuremath{\mathrm d}}
+\newcommand{\dx}{\ensuremath{\mathrm dx}}
+\newcommand{\ds}{\ensuremath{\mathrm ds}}
+\newcommand{\dt}{\ensuremath{\mathrm dt}}
+
+\DeclareMathOperator*{\vspan}{span}
+\newcommand{\rank}{\ensuremath{\text{rank}}}
+\newcommand{\eps}{\ensuremath{\varepsilon}}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+
+\newcommand{\fg}[1]{\textcolor{celestialblue}{#1}}
+

@@ -1,0 +1,48 @@
+[MAD]
+verbose=10
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=2 1
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+nbVariables=2
+variableName=solid_disp pressure 
+
+[time]
+#timeStep=0.00001
+timeStep=0.001
+nbIterations=5000
+
+[fluid]
+viscosity=0.035
+permeability=0.001
+
+[solid]
+density=1.0
+youngModulus=6670000 6670000
+poissonRatio=0.49 0.49
+x_range=7.5 12.5
+y_range=-1.0 1.0
+
+[boundaries]
+period=1.0
+amplitude=1000
+csf_pressure=15000
+inlet=4
+outlet=2
+walls=1 3
+bcNeumann=4
+
+[IO]
+patientName=poro
+geometryData=../../../../data/mesh/rectangle_inclusion_18kv.mesh
+dirResults=./results_18kv/
+
+[solver]
+solver=gmres
+preconditioner=asm
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=true
+reuse_preconditioner=true
+monitorKSP=true

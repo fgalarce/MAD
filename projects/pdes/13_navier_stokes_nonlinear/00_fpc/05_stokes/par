@@ -1,0 +1,52 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1 p1
+nbDofsPerNode=1 1 1
+innerProduct=H1 H1 L2
+nbQuadraturePoints=4
+nbQuadraturePointsBD=1
+nbVariables=3
+variableName=ux uy p
+
+[time]
+timeStep=0.01
+nbIterations=1500
+timeIntegration=BDF2
+
+[physics]
+viscosity=0.001
+density=1.0
+amplitude=1.5
+viscousTerm=symmetric
+convectiveTerm=false
+
+[labels]
+inlet=1
+outlet=2
+walls=3 4
+hemodynamics=true
+backflowStab=true
+
+[IO]
+patientName=fluid
+#geometryData=MAD_DATA/mesh/fpc/fpc_49kv.mesh
+geometryData=fpc_3kv.mesh
+dirResults=./results_Vstokes/
+writeNonLinearIterations=false
+
+[solver]
+cfd_stab=supg
+solver=gmres
+preconditioner=asm
+nonLinearTolerance=1e-2
+useModifiedGramSchmidt=false
+nonLinearMaxIterations=20
+reuse_preconditioner=false
+use_solution_as_guess_KSP=true
+ksp_tolerance=1e-8
+ksp_tolerance_absolute=1e-9
+ksp_max_iterations=500
+ksp_restartGMRESiterations=300
+monitorKSP=true

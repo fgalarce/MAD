@@ -1,0 +1,24 @@
+[MRE]
+start=0
+end=50
+voxelSize=0.2 0.2 0.2
+beamDir=0.0 0.0 1.0
+transDir=1.0 0.0 0.0
+measures=../../../../mad_data/measures/sphere.00000.us
+dirSyntheticField=../../pdes/elastodynamics/results/disp
+modeMeasures=CFI
+
+[IO]
+geometryData=../../../../mad_data/mesh/sphere_coarse.mesh
+patientName=pbdw
+dirResults=results
+
+[FEM and POD]
+innerProduct=l2
+nbQuadraturePoints=5
+nbVariables=1
+nbDofsPerNode=3
+variableName=disp
+dirModel=../../../../mad_data/sphere/mor/
+method=mode
+nbModes=20

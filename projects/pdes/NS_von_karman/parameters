@@ -1,0 +1,37 @@
+[FEM]
+fe=p1 p1
+nbDofsPerNode=2 1
+nbQuadraturePoints=4
+nbQuadraturePointsBD=1
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=0.01
+nbIterations=1150
+
+[physics]
+viscosity=0.001
+density=1.0
+inlet_u0=1.5
+
+[labels]
+inlet=1
+outlets=2
+walls=4 3
+
+[IO]
+patientName=fluid
+geometryData=../../../../data/mesh/fpc/fpc.00000.mesh
+dirResults=./fpc/
+
+[solver]
+#initial_condition_vel=./supg_2nd/velocity.00400.vct
+#initial_condition_pre=./supg_2nd/pressure.00400.scl
+backflowStab=true
+solver=preonly
+preconditioner=lu
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=false
+reuse_preconditioner=false
+monitorKSP=false

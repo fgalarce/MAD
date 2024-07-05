@@ -1,0 +1,3 @@
+dirResults=./results/
+patientName=brain
+geometryData=../../../../data/mesh/brain_alfonso/brain_3d.mesh

@@ -1,0 +1,33 @@
+[MAD]
+verbose=10
+
+[MEASURES]
+start=900
+end=958
+voxelSize=0.05 0.05 0.05
+beamDir=1.0 0.0 0.0
+transDir=0.0 1.0 0.0
+measures=../../../../data/measures/fpc.00000.us
+dirSyntheticField=../../pdes/navier_stokes/fpc/sim00000/
+modeMeasures=CFI
+
+[IO]
+geometryData=../../../../data/mesh/fpc/fpc.00000.mesh
+patientName=pbdw
+dirResults=fpc
+
+[FEM]
+innerProduct=H1
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+nbVariables=1
+nbDofsPerNode=2
+fe=p1
+nbVariables=1
+variableName=velocity
+
+[POD]
+#dirModel=../../../../data/fpc/geo00010/pod/
+dirModel=../../mor/pod/fpc_bias/
+method=mode
+nbModes=43

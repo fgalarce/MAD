@@ -1,0 +1,16 @@
+# in label - outLabels
+bdLabels=2 3 4
+innerProduct=H1
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+mass_boundary_matrix_path=../../data/matricesCaroModerate42kv/massBD.bin
+mass_matrix_path=../../data/matricesCaroModerate42kv/FELISCE/massMatrix.mb
+stiffness_matrix_path=../../data/matricesCaroModerate42kv/FELISCE/stiffnessMatrix.mb
+geometryData=../../data/mesh/carotid.geo
+CFDtimeStep=0.004
+UStimeStart=0.1
+UStimeStep=0.004
+UStimeEnd=0.6
+patientName=cfd
+dirResults=./results/
+minimalOutput=yes

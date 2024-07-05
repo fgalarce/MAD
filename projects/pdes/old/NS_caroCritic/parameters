@@ -1,0 +1,37 @@
+[FEM]
+fe=p1 p1
+nbDofsPerNode=3 1
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+nbVariables=2
+variableName=velocity pressure
+
+[time]
+timeStep=0.002
+nbIterations=1000
+
+[physics]
+viscosity=0.035
+density=1.0
+inlet_u0=1.0
+
+[labels]
+inlet=1
+outlets=2 3
+walls=4
+
+[IO]
+patientName=fluid
+geometryData=../../../../data/mesh/caroCritic.mesh
+dirResults=./cib/
+
+[solver]
+#initial_condition_vel=./supg_2nd/velocity.00400.vct
+#initial_condition_pre=./supg_2nd/pressure.00400.scl
+backflowStab=false
+solver=gmres
+preconditioner=asm
+ksp_tolerance=1e-09
+use_solution_as_guess_KSP=true
+reuse_preconditioner=true
+monitorKSP=false

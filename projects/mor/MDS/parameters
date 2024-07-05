@@ -1,0 +1,12 @@
+[MDS]
+patientName=MDS
+dirResults=./results/
+nbMeshes=4
+surfaceMapping=../../data/venturi/mappings/
+geometryData=../../data/venturi/mesh/venturi00000.mesh
+surfaceMappingInverse=../../data/venturi/mor/
+
+[Finite Elements]
+innerProduct=L2
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4

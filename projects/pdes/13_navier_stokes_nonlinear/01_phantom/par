@@ -1,0 +1,55 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1 p1 p1
+nbDofsPerNode=1 1 1 1
+innerProduct=H1 H1 H1 L2
+nbQuadraturePoints=5
+nbQuadraturePointsBD=4
+nbVariables=4
+variableName=ux uy uz p
+
+[time]
+timeStep=1e-3
+nbIterations=2800
+
+[physics]
+viscosity=0.035
+# Hemat 35
+#power_law_n=0.825350
+#power_law_m=0.088821
+# Hemat 45
+#power_law_n=0.7754
+#power_law_m=0.1482
+density=1.0
+
+[bc]
+hemodynamics=true
+inlet=3
+backflowStab=true
+walls=1
+
+[bc Windkessel]
+outlets=7 4 5 2
+resistances=480 520 520 200
+distalResistances=7200 11520 11520 4800
+capacitances=4e-4 3e-4 3e-4 4e-4
+distalPressures0=113324 113324 113324 113324
+
+[IO]
+writeNonLinearIterations=false
+patientName=phantom
+geometryData=../../../../../data/mesh/phantom_cib/phantom_3outlets.mesh
+dirResults=./phantom/
+inflow_data=../../../../../data/mesh/phantom_cib/inflow/HR_88_1ms.txt
+
+[solver]
+nonLinearMaxIterations=1000
+nonLinearTolerance=5e-2
+solver=preonly
+preconditioner=lu
+#ksp_tolerance=1e-06
+#use_solution_as_guess_KSP=true
+#reuse_preconditioner=true
+#monitorKSP=true

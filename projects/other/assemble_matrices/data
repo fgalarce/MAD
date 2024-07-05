@@ -1,0 +1,9 @@
+[FEM]
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+problemType=vector
+
+[IO]
+geometryData=../../data/mesh/venturi/venturi.mesh
+minimalOutput=yes
+dirResults=./tube/

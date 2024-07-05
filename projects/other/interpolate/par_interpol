@@ -1,0 +1,19 @@
+[MAD]
+verbose=10
+
+[Template geometry]
+dirSyntheticField=../../pdes/elasticity/toy_1/disp.00000.vct
+templateGeometry=../../../../data/mesh/circle_in_square/cis.o.mesh
+
+[Target geometry]
+geometryData=../../../../data/mesh/circle_in_square/cis.mesh
+
+[Ambient space and Mapping]
+nbDofsPerNode=2
+variableName=displacement
+nbQuadraturePoints=4
+nbQuadraturePointsBD=3
+
+[IO]
+patientName=interpol
+dirResults=./interpol/

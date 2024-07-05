@@ -1,0 +1,47 @@
+[MAD]
+verbose=2
+
+[FEM]
+nbVariables=6
+fe=p1 p1 p1 p1 p1 p1
+nbDofsPerNode=3 3 1 1 1 1
+variableName=u_re u_im p_re p_im phi_re phi_im
+nbQuadraturePoints=4
+nbQuadraturePointsBD=6
+innerProduct=H1 H1 H1 H1 L2 L2
+
+[fluid]
+viscosity=1e-2
+permeability=1e-2
+csf_pressure=1e4
+csf_factor=1.1
+
+[solid]
+density=1.0
+youngModulus=1e3
+poissonRatio=0.4
+
+[bc]
+amplitude=-1e3
+frecuency=1.0
+walls=0 2 1
+fixed_boundary=2
+bcNeumann=1
+
+[IO]
+patientName=poro_complex
+geometryData=MAD_DATA/mesh/brain/brain_alfonso/labelModel2/brain_3d.mesh
+dirResults=MAD_RESULTS/brain/biot_frecuency/
+
+[solver]
+solver=gmres
+preconditioner=asm
+#solver=preonly
+#preconditioner=lu
+monitorKSP=true
+ksp_tolerance=1e-8
+ksp_tolerance_absolute=1e-8
+ksp_max_iterations=2000
+ksp_restartGMRESiterations=500
+reuse_preconditioner=true
+use_solution_as_guess_KSP=true

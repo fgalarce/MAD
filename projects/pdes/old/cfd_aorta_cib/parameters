@@ -1,0 +1,26 @@
+[Hilbert]
+nbQuadraturePoints=5
+nbQuadraturePointsTriangles=4
+nbDofsPerNode=3 1
+variableName=velocity pressure
+nbVariables=2
+
+[Navier-Stokes]
+nbIterations=883
+viscosity=0.0483
+density=1.119
+timeStep=0.006
+inlet=10
+outlets=12 4 3 11
+walls=1
+inlet_u0=1.0
+
+[Windkessel]
+resistances=250.0 250.0 250.0 10.0
+distalResistances=8000.0 8000.0 8000.0 1000.0
+capacitances=0.0001 0.0001 0.0001 0.0001 0.01
+
+[IO]
+patientName=aorta
+geometryData=../../../../data/mesh/phantom_aorta_cms.mesh
+dirResults=./results/

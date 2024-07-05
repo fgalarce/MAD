@@ -1,0 +1,23 @@
+[MAD]
+verbose=5
+
+[FEM]
+fe=p1 p1
+nbDofsPerNode=2 1
+innerProduct=H1 L2
+nbQuadraturePoints=4
+nbQuadraturePointsBD=1
+nbVariables=2
+variableName=u p
+
+[labels]
+inlet=1
+walls=3 4
+hemodynamics=true
+backflowStab=true
+
+[IO]
+patientName=fluid
+geometryData=MAD_DATA/mesh/fpc/fpc_3kv.mesh
+dirResults=./results/
+writeNonLinearIterations=false

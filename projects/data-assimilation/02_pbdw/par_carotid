@@ -1,0 +1,48 @@
+[MAD]
+verbose=5
+
+[Measures]
+start=923
+end=924
+voxelSize=0.2 0.2 0.2
+#measures=MAD_DATA/measures/carotid.00000.us
+#measures=MAD_DATA/measures/4D-flow_hernan/MRImages_v1/sim00000/txt/IM_FFE_V60_0003.txt
+measures=MAD_DATA/measures/4D-flow_hernan/MRImages_v2/sim00000/realization_2/txt/IM_FFE_V60_0003.txt
+#measures=/Users/fgalarce/home/01_research/MAD/data/measures/MRI_2x2x2/IM_FFE_V60_0003.txt
+scaleUnits=100
+useSyntheticMeasures=no
+#dirSyntheticField=/Users/fgalarce/home/01_research/simulations/caro_shrink/sim00000/
+dirSyntheticField=/Users/fgalarce/home/01_research/simulations/manifold_carotid/sim00000/
+gaussianNoiseLevel=0.0
+
+[IO]
+geometryData=MAD_DATA/mesh/carotid/caroCritic_24kv.mesh
+patientName=pbdw
+dirResults=carotid
+modeVectors=split
+
+[PBDW]
+modeMeasures=scalarAverage
+nbDofsPerNode=1 1 1 1
+variableName=ux uy uz viscosity
+measureIt=0 1 2
+nbVariables=4
+#innerProduct=H1 H1 H1 H1
+innerProduct=l2 l2 l2 l2
+factorInnerProduct=1.0 1.0 1.0 90.0
+#dirModel=/Users/fgalarce/home/01_research/simulations/carotid_short/
+dirModel=/Users/fgalarce/home/01_research/simulations/pod_windows/pod_00923_00933/
+nbModes=5
+beamDir=1.0 0.0 0.0
+transDir=0.0 1.0 0.0
+solver=preonly
+preconditioner=lu
+
+[PBDW pre-load]
+#rieszRepresentersFolder=./rr_mellaMeasures_2mm/
+#nbMeasures=2325
+#crossGramianMatrix=./carotid/G.bin
+
+[FEM]
+nbQuadraturePoints=4
+nbQuadraturePointsBD=6

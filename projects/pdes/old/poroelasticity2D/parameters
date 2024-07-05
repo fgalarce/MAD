@@ -1,0 +1,23 @@
+[FEM]
+nbVariables=3
+fe=p1 p1 p1
+nbDofsPerNode=2 2 1
+variableName=Usolid Ufluid pressure
+innerProduct=H1
+nbQuadraturePoints=4
+
+[Biot]
+nbIterations=2
+viscosity=1.0
+density=1
+timeStep=1
+porosity=0.2
+inlet=5
+outlet=7
+walls=6 8
+inlet_u0=1
+
+[IO]
+patientName=biot
+geometryData=../../../../data/mesh/rectangle.mesh
+dirResults=./results/
