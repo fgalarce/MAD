@@ -1,0 +1,74 @@
+# dynamic/static c++ libraries
+*.o
+*.so
+*.dylib
+
+*.mtx
+
+# executables
+*.exe
+
+# vim swap files
+*.swp
+*.swo
+*.swn
+
+*.log
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+# ensight files
+*.vct
+*.scl
+*.case
+*.geo
+
+# inria
+*.mesh
+
+# python
+*.pyc
+# torch
+*.pt
+
+
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
+*/*/*/.DS_Store
+.vscode
+
+*.bin
+*.bin.info
+*.m
+*.mb
+*.mb.info
+
+*/data/*
+*/data/
+/data/
+*/big_data/*
+*/big_data/
+/big_data/
+
+*/results/*
+*/*/results/*
+*/results/
+/results/
+
+*/old/*
+*/old/
+/old/
+
+# misc
+*.out
+*.txt
+*.pdf
+*.csv
+*.ini
+
+/external_software/
+external_software
+external_software/*
+external_software/*/*
